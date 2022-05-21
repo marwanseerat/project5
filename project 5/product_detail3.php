@@ -1,5 +1,11 @@
-<?php include 'include/header.php'; 
-include 'config/connect.php'; ?>
+<?php 
+include 'config/connect.php';
+
+
+
+
+include 'include/header.php'; 
+?>
 
             <div class="layout_padding-2">
                 <div class="container">

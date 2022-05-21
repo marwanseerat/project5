@@ -1,5 +1,6 @@
-<?php include 'include/header.php'; 
-include 'config/connect.php'; ?>
+<?php
+session_start();
+ include 'include/header.php'; ?>
 <br>
 <div class="contactus">
    <div class="container-fluid">

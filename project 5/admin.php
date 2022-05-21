@@ -1,14 +1,28 @@
 <?php
 include 'config/connect.php';
 
+if(isset($_POST["submit_img"])){
+    $file_name = $_FILES["file"]["name"];
+    $file_type = $_FILES["file"]["type"];
+    $file_size = $_FILES["file"]["size"];
+    $file_tem = $_FILES["file"]["tmp_name"];
+    $file_store = "images/".$file_name;
+    // echo $file_store;
+    move_uploaded_file($file_tem, $file_store);
+}
+
+
 //call the user information from database
 $users=mysqli_fetch_all(mysqli_query($conn,'select * from users'),MYSQLI_ASSOC);
 
 // call the products informations from database
 $products=mysqli_fetch_all(mysqli_query($conn,'select * from products'),MYSQLI_ASSOC);
 
+// call the sales informations from database
+$sales=mysqli_fetch_all(mysqli_query($conn,'select * from sales'),MYSQLI_ASSOC);
+
 // call the category informations from database
-// $category=mysqli_fetch_all(mysqli_query($conn,'select * from category'),MYSQLI_ASSOC);
+$category=mysqli_fetch_all(mysqli_query($conn,'select * from category'),MYSQLI_ASSOC);
 
 
 // Form Display Default state
@@ -137,6 +151,7 @@ mysqli_query($conn,$sql);
 // product add functions
 if (isset($_POST['addProductSub'])) {
     $paF="block";
+    $baF="none";
 }
 if (isset($_POST['addProductSubmit'])) {
 
@@ -185,16 +200,16 @@ include 'include/header.php';
 
 <form action="admin.php" method="POST">
 <h1>Users Information</h1>
-<button class="btn bg-primary" type="submit" name="addUserSub">Add User</button>
+<button class="btn bg-secondary" type="submit" name="addUserSub">Add User</button>
 </form>
- 
+<br>
 <table class="table" >
-    <tr class='bg-active'>
-        <td>id</td>
-        <td>name</td>
+    <tr class='bg-active' style="background-color:pink;">
+        <td>ID</td>
+        <td>Name</td>
         <td>E-mail</td>
-        <td>phone</td>
-        <td>password</td>
+        <td>Phone</td>
+        <td>Password</td>
         <td>Created at</td>
         <td>Updated at</td>
         <td>Update</td>
@@ -210,7 +225,7 @@ include 'include/header.php';
         }
         else {
         // Print user information
-        echo "<tr class='' style='background-color:pink;'>
+        echo "<tr>
         <td>".$user['id']."</td>
         <td>".$user['fname']."</td>
         <td>".$user['email']."</td>
@@ -301,14 +316,54 @@ include 'include/header.php';
 
 <!-- add product button -->
 <form action="admin.php" method="POST">
-<h1>Users Information</h1>
-<button class="btn bg-primary" type="submit" name="addProductSub">Add Product</button>
+<h1>Products Information</h1>
+<button class="btn bg-secondary" type="submit" name="addProductSub" style="display:<?php echo $baF; ?> ;">Add Product</button>
 </form>
+
+<!-- Add Product Form -->
+<form action="admin.php" method="POST" class="container" style="display:<?php echo $paF; ?> ;">
+<div class="form-row">
+    <div class="form-group col-md-2">
+    <label for="paname">product Name</label>
+    <input type="text" id='paname' name="productAddName" placeholder="name">
+    </div>
+    <div class="form-group col-md-2">
+    <label for="paCate">Product Category</label>
+    <input type="text" id='paCate' name="productAddCategory" placeholder="Category">
+    </div>
+    <!-- <div class="form-group col-md-3 ">
+    <label for="paimg">Product Image</label> -->
+    <input type="hidden" id='paimg' name="productAddImage" placeholder="Image" value="<?php $file_store ?>">
+    <!-- </div> -->
+    <div class="form-group col-md-2 ">
+    <label for="paprice">Product Price</label>
+    <input type="text" id='paprice' name="productAddPrice" placeholder="Price">
+    </div>
+    <div class="form-group col-md-2 ">
+    <label for="paquantity">Product Quantity</label>
+    <input type="text" id='paquantity' name="productAddQuantity" placeholder="Quantity">
+    </div>
+    
+    <div class="form-group col-md-2 ">
+        <p>f</p>
+    <button type="submit" class="btn btn-primary" name="addProductSubmit">Add</button>
+    </div>
+    </div>
+</form>
+<form action="?" method="POST" enctype="multipart/form-data" style="display:<?php echo $paF; ?> ;">
+        <input type="file" name="file" id="file">
+        <input type="submit" name="submit_img" value="submit">
+</form>
+
+<!-- End Of Add Product Form -->
+<br><br>
+
+
 <!-- End Of add product button -->
 
 <!-- Products Information Table -->
 <table class="table">
-    <tr>
+    <tr class='bg-warning'>
         <td>Id</td>
         <td>Product name</td>
         <td>Image</td>
@@ -329,8 +384,8 @@ include 'include/header.php';
         }
         else {
         // Print product information
-        echo "<tr class='bg-warning'>
-        <td>".$product['product_id']."</td>
+        echo "<tr >
+        <td>".$product['id']."</td>
         <td>".$product['pname']."</td>
         <td><img src='".$product['image']."' style='width:25px;height:25px' alt='dining table'></td>
         <td>".$product['category_id']."</td>
@@ -339,12 +394,12 @@ include 'include/header.php';
         <td>".$product['created_at']."</td>
         <td>".$product['updated_at']."</td>
         <td><form action='admin.php' method='POST'>
-            <input type='hidden' name='updateProduct' value='".$product['product_id']."'>
+            <input type='hidden' name='updateProduct' value='".$product['id']."'>
             <button type='submit' name='updateProductSub'>Update</button>
             </form>
         </td>
         <td><form action='admin.php' method='POST'>
-            <input type='hidden' name='deleteProduct' value='".$product['product_id']."'>
+            <input type='hidden' name='deleteProduct' value='".$product['id']."'>
             <button type='submit' name='deleteProductSub'>Delete</button>
             </form>
         </td></tr>";
@@ -357,7 +412,7 @@ include 'include/header.php';
 <br><br>
 
 <!-- Update Product Info Form -->
-<form action="admin.php" method="POST" class="container" style="display:<?php echo $pF; ?> ;" >
+<form action="admin.php" method="POST" class="container" style="display:<?php echo $pF; ?> ;">
 <div class="form-row">
     <div class="form-group col-md-2">
     <label for="pname">productName</label>
@@ -385,34 +440,7 @@ include 'include/header.php';
 </form>
 <!-- End Of Update Product Info Form -->
 
-<!-- Add Product Form -->
-<form action="admin.php" method="POST" class="container" style="display:<?php echo $paF; ?> ;" >
-<div class="form-row">
-    <div class="form-group col-md-2">
-    <label for="paname">product Name</label>
-    <input type="text" id='paname' name="productAddName" placeholder="name">
-    </div>
-    <div class="form-group col-md-2">
-    <label for="paCate">Product Category</label>
-    <input type="text" id='paCate' name="productAddCategory" placeholder="Category">
-    </div>
-    <div class="form-group col-md-2 ">
-    <label for="paimg">Product Image</label>
-    <input type="text" id='paimg' name="productAddImage" placeholder="Image">
-    </div>
-    <div class="form-group col-md-2 ">
-    <label for="paprice">Product Price</label>
-    <input type="text" id='paprice' name="productAddPrice" placeholder="Price">
-    </div>
-    <div class="form-group col-md-2 ">
-    <label for="paquantity">Product Quantity</label>
-    <input type="text" id='paquantity' name="productAddQuantity" placeholder="Quantity">
-    </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary" name="addProductSubmit">Add</button>
-</form>
-<!-- End Of Add Product Form -->
 
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////Categories////////////////////////////////////////////////////
@@ -420,18 +448,18 @@ include 'include/header.php';
 
 <!-- categories Information Table -->
 <form action="admin.php" method="POST">
-<h1>categories Information</h1>
-<button class="btn bg-primary" type="submit" name="addCatSub">Add Category</button>
+<h1>Categories Information</h1>
+<button class="btn bg-secondary" type="submit" name="addCatSub">Add Category</button>
 </form>
- 
+<br>
 <table class="table" >
-    <tr class='bg-active'>
-        <td>id</td>
-        <td>Category name</td>
-        <td>Created at</td>
-        <td>Updated at</td>
-        <td>Update</td>
-        <td>Delete</td>
+    <tr class='' style='background-color:pink;'>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
         
         <?php foreach($category as $cat): ?>
@@ -443,10 +471,10 @@ include 'include/header.php';
         }
         else {
         // Print category information
-        echo "<tr class='' style='background-color:pink;'>
+        echo "<tr class='bg-active' >
         <td>".$cat['category_id']."</td>
         <td>".$cat['categoryname']."</td>
-        <td>".$cat['ctearted_at']."</td>
+        <td>".$cat['created_at']."</td>
         <td>".$cat['updated_at']."</td>
         <td><form action='admin.php' method='POST'>
             <input type='hidden' name='updateCat' value='".$cat['category_id']."'>
@@ -501,3 +529,31 @@ include 'include/header.php';
 
 <br><br>
 
+<!-- Start of Sales table -->
+<h1>Sales Information</h1>
+<table class="table">
+    <tr class='bg-success'>
+        <th>order Id</th>
+        <th>Product name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+
+    </tr>
+    
+        <?php foreach($sales as $sale): ?>
+        <?php
+
+        // Print sale information
+        echo "<tr class='bg-light'>
+        <td>".$sale['order_id']."</td>
+        <td>".$sale['product_name']."</td>
+        <td><img src='".$sale['product_image']."' style='width:25px;height:25px' alt='dining table'></td>
+        <td>".$sale['product_price']."</td>
+        <td>".$sale['qty']."</td>
+        <td>".$sale['total_price']."</tr>";
+        ?>
+        <?php endforeach; ?>
+</table>
+<!-- End of Sales table -->

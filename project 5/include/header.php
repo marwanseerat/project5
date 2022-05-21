@@ -1,3 +1,14 @@
+<?php
+
+$uss = "none";
+$uss1 = "inline-block";
+
+
+if (!empty($_SESSION['name'])) {
+    $uss = "inline-block";
+    $uss1 = "none";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +49,11 @@
 
 <body class="main-layout ">
 
-    
+    <!-- loader  -->
+    <!-- <div class="loader_bg">
+        <div class="loader"><img src="images/loading.gif" alt="#" /></div>
+    </div> -->
+    <!-- end loader -->
 
     <div class="wrapper ">
 
@@ -85,26 +100,21 @@
                                 <div class="right_header_info">
                                     <ul>
                                         <li class="active"> <a href="index.php">Home</a></li>
+                                        <li> <a href="main.php">Product</a></li>
                                         <li> <a href="about.php">About</a></li>
-                                        <li> <a href="product.php">Product</a></li>
-                                        <li> <a href="blog.php">Blog</a></li>
                                         <li> <a href="contact.php">Contact us</a></li>
-                                        <li>
-                                        <button type="button" class="btn btn-outline-secondary"><a href="../register.php">Sign up</a></button>
-                                            <!-- <a href="#">
-                                                <img style="margin-right: 15px;" src="icon/1.png" alt="#" />
-                                                <i class="fa-solid fa-user basket-icon"></i>
-                                            </a> -->
+                                        <li style="display:<?php echo $uss1; ?> ;">
+                                            <a href="register.php">Sign up</a>
                                         </li>
-                                        <li>
-                                        <button type="button" class="btn btn-outline-secondary"><a href="../login.php">Login</a></button>
+                                        <li style="display:<?php echo $uss1; ?> ;">
+                                            <a href="login.php">Login</a>
                                         </li>
 
-                                        <li>
-                                            <a href="#">
-                                                <!-- <img style="margin-right: 15px;" src="icon/3.png" alt="#" /> -->
-                                                <i class="fa-solid fa-basket-shopping basket-icon"></i>
-                                            </a>
+                                        <li style="display:<?php echo $uss; ?> ;"><a href="cart.php"><i class="fa-solid fa-basket-shopping fa-lg basket-icon"></i></a>
+                                        </li>
+                                        <li style="display:<?php echo $uss; ?> ;"><a href="user.php"><i class="fa-solid fa-user fa-lg basket-icon"></i></a>
+                                        </li>
+                                        <li style="display:<?php echo $uss; ?> ;"><a href="logout.php"><i class="fa-solid fa-person-walking-arrow-right fa-lg basket-icon"></i></i></a>
                                         </li>
 
                                         <!-- <li>

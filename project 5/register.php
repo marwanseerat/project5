@@ -165,20 +165,20 @@
 <!-- Sign Up form -->
 
 <form class="needs-validation" action="register.php" method="POST" novalidate style="display:<?php echo $s2; ?> ;">
-<h2 style="text-align:center ; font-family: 'FontAwesome'; margin-bottom:10px;
-    font-weight: bolder;">Sign Up </h2>
+<h2 style="text-align:center ; font-family: 'FontAwesome';
+    font-weight: bolder;">Sign Up form</h2>
 
   <div class="form-row">
     <div class="col-md-2 offset-md-4">
       <label for="validationCustom01">First name</label>
-      <input type="text" class="form-control is-inavalid" id="validationCustom01" name="fName"   required>
+      <input type="text" class="form-control is-inavalid" id="validationCustom01" name="fName" placeholder="First name"  required>
       <div class="invalid-feedback" style="display:<?php echo $fn ?>">
         <?php echo $fnErr ?>
       </div>
     </div>
     <div class="col-md-2 ">
       <label for="validationCustom02">Last name</label>
-      <input type="text" class="form-control is-inavalid" id="validationCustom02" name="lName"   required>
+      <input type="text" class="form-control is-inavalid" id="validationCustom02" name="lName" placeholder="Last name"  required>
       <div class="invalid-feedback" style="display:<?php echo $ln ?>">
         <?php echo $lnErr ?>
         </div>
@@ -189,24 +189,22 @@
     <div class="col-md-4 offset-md-4">
       <label for="validationemail">Email</label>
       <div class="input-group">
-        <input type="email" class="form-control is-inavalid" id="validationemail" name="registerEmail"  aria-describedby="inputGroupPrepend" required>
+        <input type="email" class="form-control is-inavalid" id="validationemail" name="registerEmail" placeholder="test@test.com" aria-describedby="inputGroupPrepend" required>
         <div class="invalid-feedback" style="display:<?php echo $em ?>">
         <?php echo $emailErr ?>
         </div>
       </div>
     </div>
   </div>
-  <br>
   <div class="col-md-4 offset-md-4">
       <label for="validationphone">Phone</label>
       <div class="input-group">
-        <input type="number" class="form-control is-inavalid" id="validationphone" name="phoneNumber"  aria-describedby="inputGroupPrepend" pattern="[0-9]{14}" required>
+        <input type="number" class="form-control is-inavalid" id="validationphone" name="phoneNumber" placeholder="0777777777" aria-describedby="inputGroupPrepend" pattern="[0-9]{14}" required>
         <div class="invalid-feedback" style="display:<?php echo $tl ?>">
         <?php echo $telErr ?>
         </div>
       </div>
     </div>
-    <br>
   <div class="form-group col-md-4 offset-md-4">
       <label for="inputState">City</label>
       <select id="inputState" name="city" class="form-control is-inavalid" style="height:7vh ;">
@@ -225,26 +223,24 @@
         <option value="Al-Salt">Al-Salt</option>
       </select>
     </div>
-    <br>
   <div class="form-row">
     <div class="col-md-4 offset-md-4">
       <label for="validationCustom03">Address</label>
-      <input type="text" class="form-control is-inavalid" id="validationCustom03" name="address"  required>
+      <input type="text" class="form-control is-inavalid" id="validationCustom03" name="address" placeholder="Address" required>
       <div class="invalid-feedback" style="display:<?php echo $ad ?>">
         <?php echo $adErr ?>
       </div>
     </div>
     <div class="col-md-2 offset-md-4">
       <label for="validationpass">Password</label>
-      <input type="password" class="form-control is-inavalid" id="validationpass" name="registerPass"  required>
+      <input type="password" class="form-control is-inavalid" id="validationpass" name="registerPass" placeholder="********" required>
       <div class="invalid-feedback" style="display:<?php echo $ps ?>">
         <?php echo $passwordErr ?>
       </div>
     </div>
-    <br>
     <div class="col-md-2 ">
       <label for="validationConPass">Confirm password</label>
-      <input type="password" class="form-control is-inavalid" id="validationConPass" name="registerConfPass"  required>
+      <input type="password" class="form-control is-inavalid" id="validationConPass" name="registerConfPass" placeholder="********" required>
       <div class="invalid-feedback" style="display:<?php echo $cps ?>">
         <?php echo $cpasswordErr ?>
       </div>
@@ -253,13 +249,12 @@
   <div class="col-md-4 offset-md-4">
       <label for="validationbdate">Birthdat</label>
       <div class="input-group">
-        <input type="date" class="form-control is-inavalid" id="validationbdate" name="date"  aria-describedby="inputGroupPrepend" required>
+        <input type="date" class="form-control is-inavalid" id="validationbdate" name="date" placeholder="test@test.com" aria-describedby="inputGroupPrepend" required>
         <div class="invalid-feedback" style="display:<?php echo $bd ?>">
         <?php echo $dateErr ?>
         </div>
       </div>
     </div>
-    <br>
   <div class="form-group">
     <div class="form-check col-md-4 offset-md-4">
       <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -271,7 +266,7 @@
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn2 col-md-4 offset-md-4" name="signup">Sign Up</button>
+  <button type="submit" class="btn col-md-4 offset-md-4" name="signup" style="background-color:#363062 ; color:#E9D5DA">Sign Up</button>
   <br><br>
   
 </form>
@@ -279,11 +274,11 @@
 
 <!-- switch to login form -->
 <form class="needs-validation" action="register.php" method="POST" novalidate style="display:<?php echo $s2; ?> ;">
-<button class="btn btn2 col-md-4 offset-md-4" type="submit" name="switch"><a href="./login.php">Log In !!!</a></button>
+<button class="btn col-md-4 offset-md-4" type="submit" name="switch" style="background-color:#E9D5DA ; color:#363062"><a href="./login.php">Log In !!!</a></button>
 </form>
 <!-- end of switch to login form -->
 
 <br><br>
 <?php
-//  require 'include/footer.php'; 
+ require 'include/footer.php'; 
  ?>
